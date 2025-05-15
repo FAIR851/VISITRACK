@@ -1,0 +1,139 @@
+html, body{
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+body{
+    background: url('../Images/ntcbg.jpg') no-repeat center center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.wrapper {
+    width: 260px;
+    background: rgba(1, 56, 70, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(100px);
+    color:white;
+    border-radius: 15px;
+    padding: 15px 30px;
+    gap: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+
+.wrapper h1 {
+    text-align: center;
+    font-size: 26px;
+    margin-bottom: 25px;
+}
+
+.wrapper .Input-box {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    margin: 20px 0;
+    text-align: left;
+}
+
+.Input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 14px;
+    padding: 0 40px 0 15px;
+    color: #fff;
+    box-sizing: border-box;
+}
+
+.Input-box input::placeholder {
+    color: #fff;
+}
+
+.Input-box i {
+    position: absolute;
+    right: 15px;
+    top: 90%;
+    transform: translateY(-50%);
+    font-size: 18px;
+}
+.wrapper .remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.remember-forgot label {
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.remember-forgot a {
+    color: white;
+    text-decoration: none;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+.wrapper .btn {
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.wrapper .register-link {
+    font-size: 14px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.register-link p a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.register-link p a:hover {
+    text-decoration: underline;
+}
+
+
+.alert {
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 4px;
+}
+.success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+}
+.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+ }
