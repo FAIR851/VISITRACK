@@ -113,14 +113,17 @@ function processVisitorForm() {
     <title>Logbook System</title>
 </head>
 <body>
-<a href="AdminRegistration/registration.php" class="button">GUARD PASS</a>
+
 
 <div class="container" id="container">  
+    <a href="AdminRegistration/registration.php" class="to-guard-form">GUARD PASS</a>
+
 
     <form action="index.php" method="POST">
         
-        <div class="form-container name-form">
-            <h1>Welcome to NTC!</h1>
+        
+        <div class="form-container name-form active">
+            <h1 class="Welcome1">Welcome to NTC!</h1>
 
 
             <input type="text" name="Lastname" id="Lastname" placeholder="Lastname" required>
@@ -128,10 +131,12 @@ function processVisitorForm() {
             <input type="text" name="Middle_Initial" id="Middle_Initial" placeholder="Middle Initial" required>
             <input type="text" name="Suffix" id="Suffix" placeholder="Suffix">
             <input type="email" name="Email" id="Email" placeholder="Email" required>
+
+
         </div>
 
         <div class="form-container contact-address-form">
-            <h1>Welcome to NTC!</h1>
+            <h1 class="Welcome">Welcome to NTC!</h1>
 
             <label for="purposes-input"></label>
             <input list="purposes" id="purposes-input" name="purposes" placeholder="Purposes" required>
@@ -163,14 +168,15 @@ function processVisitorForm() {
         <div class="toggle">
             <img src="Images/Logo.png" class="logo">
             <div class="toggle-panel toggle-left">
-                <h1>Enter required information!</h1>
-                <p>Want to re-enter your name?</p>
+                <h1 class="reg-subtitle">Enter required information!</h1>
+                <p>Want to go back and re-enter your information?</p>
                 <button class="hidden" id="namehid">Go Back!</button>
             </div>
             <img src="Images/Logo.png" class="logo2">
             <div class="toggle-panel toggle-right">
+                <h1 class="reg-subtitle">Welcome to the Visitor Registration Form!</h1>
                 <p>Fill up the required personal details to continue in our university</p>
-                <button class="hidden" id="conhid">Continue!</button>
+                <button class="hidden" id="conhid">Continue!</button>                  
             </div>
         </div>
     </div>
