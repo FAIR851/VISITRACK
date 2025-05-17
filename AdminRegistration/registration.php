@@ -4,65 +4,75 @@ session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Registration Logic
-    if (isset($_POST['signUp'])) {
-        $firstName = trim($_POST['firstname']);
-        $lastName = trim($_POST['lastname']);
-        $email = trim($_POST['username']);
-        $password = password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
+if (isset($_POST['signUp'])) {
+    $firstName = trim($_POST['firstname']);
+    $lastName = trim($_POST['lastname']);
+    $email = trim($_POST['username']);
+    $password = password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
 
-        $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
+    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-        if ($result->num_rows > 0) {
-            echo "<script>alert('Email Address Already Exists!');</script>";
-        } else {
-            $insertQuery = "INSERT INTO users (firstname, lastname, email, password) VALUES (?, ?, ?, ?)";
-            $stmt = $conn->prepare($insertQuery);
-            $stmt->bind_param("ssss", $firstName, $lastName, $email, $password);
-
-            if ($stmt->execute()) {
-                echo "<script>
-                        alert('Registration successful! Redirecting to homepage...');
-                        window.location.href = 'registration.php';
-                </script>";
-            } else {
-                echo "<script>alert('Error registering user: " . $stmt->error . "');</script>";
-            }
-        }
+    if ($result->num_rows > 0) {
         $stmt->close();
-    }
+        header("Location: registration.php?message=Email+Address+Already+Exists!&error=true&from=registration");
+        exit();
+    } else {
+        $stmt->close(); // close previous statement
+        $insertQuery = "INSERT INTO users (firstname, lastname, email, password) VALUES (?, ?, ?, ?)";
+        $stmt = $conn->prepare($insertQuery);
+        $stmt->bind_param("ssss", $firstName, $lastName, $email, $password);
 
-    // Login Logic
-    if (isset($_POST['signIn'])) {
-        $email = trim($_POST['username']);
-        $password = trim($_POST['password']);
-
-        $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            $user = $result->fetch_assoc();
-            if (password_verify($password, $user['password'])) {
-                $_SESSION['email'] = $user['email'];
-                echo "<script>
-                        alert('Login successful! Redirecting to homepage...');
-                        window.location.href = '../Dashboard/dashboard.php';
-                    </script>";
-                exit();
-            } else {
-                echo "<script>alert('Incorrect Password');</script>";
-            }
+        if ($stmt->execute()) {
+            $stmt->close();
+            header("Location: registration.php?message=Registration+successful!+Please+login.&error=false");
+            exit();
         } else {
-            echo "<script>alert('Email not found');</script>";
+            $stmt->close();
+            header("Location: registration.php?message=Error+registering+user&error=true&from=registration");
+            exit();
         }
-        $stmt->close();
     }
+}
 
-    $conn->close();
+// Login Logic
+if (isset($_POST['signIn'])) {
+    $email = trim($_POST['username']);
+    $password = trim($_POST['password']);
+    $remember = isset($_POST['remember']) ? true : false;
+
+    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $user = $result->fetch_assoc();
+        if (password_verify($password, $user['password'])) {
+            $stmt->close();
+            $_SESSION['email'] = $user['email'];
+
+            if ($remember) {
+                $cookie_name = "remember_user";
+                $cookie_value = $email;
+                setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
+            }
+
+            header("Location: ../Dashboard/dashboard.php");
+            exit();
+        } else {
+            $stmt->close();
+            header("Location: registration.php?message=Incorrect+Password&error=true");
+            exit();
+        }
+    } else {
+        $stmt->close();
+        header("Location: registration.php?message=Email+not+found&error=true");
+        exit();
+    }
+}
 }
 ?>
 
@@ -95,8 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="remember-forgot">
-
-                <label><input type="checkbox"> Remember me</label>
+                <label><input type="checkbox" name="remember"> Remember me</label>
                 <a href="forgtpass.php"> Forgot password?</a>
             </div>
             <button type="submit" class="btn" name="signIn">Login</button>
@@ -121,14 +130,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <i class='bx bxs-user'></i>
             </div>
             <div class="Input-box">
-                <label for="username">Email/Username:</label>
-                <input type="text" name="username" id="username" placeholder="Username" required>
+                <label for="register-username">Email/Username:</label>
+                <input type="text" name="username" id="register-username" placeholder="Username" required>
                 <i class='bx bx-envelope'></i>
             </div>
             <div class="Input-box">
                 <label for="register-password">Password:</label>
                 <input type="password" name="password" id="register-password" placeholder="Password" required>
                 <i class='bx bx-show toggle-password' data-target="register-password"></i>
+                <div class="error-message" id="password-error"></div>
             </div>
 
             <button type="submit" class="Signup" name="signUp">Sign up</button>
