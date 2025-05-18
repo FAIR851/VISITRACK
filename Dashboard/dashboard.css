@@ -37,7 +37,7 @@ body{
 .register-btn {
     position: absolute;
     top: 10px;
-    right: 10px;
+    right: 2.7%;
     background-color: var(--accent-clr);
     color: white;
     padding: 4px 8px;
@@ -78,6 +78,18 @@ body{
     overflow: hidden;
     text-wrap: nowrap;
 }
+#sidebar a.active {
+    background-color: #5e63ff;
+    color: white;
+}
+
+#sidebar a.active svg {
+    fill: white;
+}
+
+#sidebar a {
+    transition: background-color 0.2s ease;
+}
 #sidebar.close{
     padding: 3px;
     width: 42px;
@@ -93,14 +105,8 @@ body{
         font-weight: 600;
     }
 }
-#sidebar ul li.active a{
-    color: var(--accent-clr);
-    svg{
-        fill: var(--accent-clr);
-    }
-}
+
 #sidebar a, #sidebar .logo{
-    border-radius: 4em;
     padding: 0.5em;
     text-decoration: none;
     color: var(--text-clr);
@@ -138,21 +144,25 @@ body{
 #main-content {
     padding: 8px;
     width: 100%;
-    background-color: var(--base-clr);
+    background-color: rgba(17, 18, 26, 0.5); 
     font-size: 13.5px;
+    backdrop-filter: blur(5px);
+    border-radius: 6px; 
 }
+
 .header {
-    text-align: left;
+    left: 10%;
     font-size: 1.2rem;
     font-weight: 700;
     margin-bottom: 10px;
+    margin-left: 5px;
 }
 .table-container {
     overflow-x: auto;
     padding: 5px;
 }
 table {
-    width: 100%;
+    width: 98.5%;
     border-collapse: collapse;
     background: var(--hover-clr);
     color: var(--text-clr);
@@ -243,7 +253,7 @@ tr:hover td {
 }
 .export-btn {
     position: absolute;
-    right: 10px;
+    right: 2.7%;
     background-color: darkcyan; 
     color: white;
     border: none;
@@ -259,7 +269,7 @@ tr:hover td {
 }
 .export-btn1 {
     position: absolute;
-    right: 85px;
+    right: 100px;
     top: 12px;
     background-color: darkcyan; 
     color: white;
@@ -274,6 +284,36 @@ tr:hover td {
 .export-btn1:hover {
     background-color: #45a049; 
 }
+
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; 
+    overflow: hidden;
+}
+
+.background::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5); 
+    backdrop-filter: blur(10px);
+    z-index: 1;
+}
+
+.bj1 {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0; 
+}
+
 @media (max-width: 768px) {
     #sidebar {
         width: 42px;
