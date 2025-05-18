@@ -119,7 +119,7 @@ Install these extensions:
 4. Database Setup
 -----------------
 1. Access phpMyAdmin: http://localhost/phpmyadmin
-2. Create database named: visitor_db
+2. Create database named: login_db
 3. Execute these SQL commands:
 
 CREATE TABLE visitors (
