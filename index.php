@@ -113,10 +113,12 @@ function processVisitorForm() {
     <title>Logbook System</title>
 </head>
 <body>
+    <div class="border">
+    </div>
+    <a href="AdminRegistration/registration.php" class="to-guard-form">GUARD PASS</a>
 
 
 <div class="container" id="container">  
-    <a href="AdminRegistration/registration.php" class="to-guard-form">GUARD PASS</a>
 
 
     <form action="index.php" method="POST">
@@ -176,12 +178,14 @@ function processVisitorForm() {
             <div class="toggle-panel toggle-right">
                 <h1 class="reg-subtitle">Welcome to the Visitor Registration Form!</h1>
                 <p>Fill up the required personal details to continue in our university</p>
-                <button class="hidden" id="conhid">Continue!</button>                  
+                <button class="hidden" id="conhid">Continue!</button>
             </div>
         </div>
     </div>
 </div>
 
+<div class="border1">
+</div>
 <script src="script.js"></script>
 </body>
 </html>
